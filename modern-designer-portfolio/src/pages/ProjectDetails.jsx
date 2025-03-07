@@ -23,7 +23,6 @@ const projects = {
     tools: ['Figma', 'Protopie', 'Principle'],
     deliverables: ['UX Research', 'Wireframes', 'UI Design', 'Interactive Prototype', 'Design System'],
   },
-  // Add more projects here
 };
 
 const ProjectDetails = () => {
@@ -32,44 +31,39 @@ const ProjectDetails = () => {
 
   if (!project) {
     return (
-      <div className="container py-32">
-        <h1>Project not found</h1>
+      <div className="container mx-auto py-32 text-center">
+        <h1 className="text-2xl font-bold">Project not found</h1>
       </div>
     );
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="pt-20"
-    >
-      <div className="container py-12">
-        <Link to="/" className="inline-flex items-center text-neutral-600 hover:text-primary-600 mb-8">
-          <HiArrowLeft className="mr-2" />
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="pt-20">
+      <div className="container mx-auto px-4 lg:px-8 py-12">
+        <Link to="/" className="inline-flex items-center text-gray-600 hover:text-primary-600 mb-8">
+          <HiArrowLeft className="mr-2 text-lg" />
           Back to Projects
         </Link>
 
-        <div className="max-w-4xl">
-          <span className="text-primary-600 font-medium">{project.category}</span>
-          <h1 className="text-4xl md:text-5xl font-bold mt-2 mb-6">{project.title}</h1>
+        <div className="max-w-4xl mx-auto">
+          <span className="text-primary-600 font-medium uppercase">{project.category}</span>
+          <h1 className="text-3xl md:text-5xl font-bold mt-2 mb-6">{project.title}</h1>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             <div>
-              <h3 className="text-sm text-neutral-500 mb-1">Client</h3>
+              <h3 className="text-sm text-gray-500 mb-1">Client</h3>
               <p className="font-medium">{project.client}</p>
             </div>
             <div>
-              <h3 className="text-sm text-neutral-500 mb-1">Duration</h3>
+              <h3 className="text-sm text-gray-500 mb-1">Duration</h3>
               <p className="font-medium">{project.duration}</p>
             </div>
             <div>
-              <h3 className="text-sm text-neutral-500 mb-1">Year</h3>
+              <h3 className="text-sm text-gray-500 mb-1">Year</h3>
               <p className="font-medium">{project.year}</p>
             </div>
             <div>
-              <h3 className="text-sm text-neutral-500 mb-1">Tools</h3>
+              <h3 className="text-sm text-gray-500 mb-1">Tools</h3>
               <p className="font-medium">{project.tools.join(', ')}</p>
             </div>
           </div>
@@ -88,18 +82,14 @@ const ProjectDetails = () => {
           <div className="grid grid-cols-1 gap-8 mb-12">
             {project.images.map((image, index) => (
               <Zoom key={index}>
-                <img
-                  src={image}
-                  alt={`${project.title} - Image ${index + 1}`}
-                  className="w-full rounded-2xl shadow-lg"
-                />
+                <img src={image} alt={`Project ${index + 1}`} className="w-full rounded-lg shadow-lg" />
               </Zoom>
             ))}
           </div>
 
-          <div className="bg-neutral-100 rounded-2xl p-8">
+          <div className="bg-gray-100 rounded-lg p-8">
             <h2 className="text-2xl font-bold mb-4">Deliverables</h2>
-            <ul className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {project.deliverables.map((item, index) => (
                 <li key={index} className="flex items-center">
                   <span className="w-2 h-2 bg-primary-600 rounded-full mr-2"></span>
