@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { Link } from 'react-scroll';
-import { motion } from 'framer-motion';
-import { HiMenu, HiX } from 'react-icons/hi';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { HiMenu, HiX } from "react-icons/hi";
 
 const Navbar = ({ scrolled }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  // Check if the current page is a project details page
+  const isProjectDetailsPage = location.pathname.startsWith("/project/");
 
   const navItems = [
-    { name: 'Home', to: 'home' },
-    { name: 'About', to: 'about' },
-    { name: 'Work', to: 'work' },
-    { name: 'Process', to: 'process' },
-    { name: 'Contact', to: 'contact' },
+    { name: "Home", to: "/" },
+    { name: "About", to: "/#about" },
+    { name: "Work", to: "/#work" },
+    { name: "Process", to: "/#process" },
+    { name: "Contact", to: "/#contact" },
   ];
 
   return (
@@ -20,33 +24,31 @@ const Navbar = ({ scrolled }) => {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/80 backdrop-blur-md py-4 shadow-lg shadow-neutral-100/50' : 'bg-transparent py-6'
+        scrolled
+          ? "bg-white/80 backdrop-blur-md py-4 shadow-lg shadow-neutral-100/50"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="container flex items-center justify-between">
-        <Link to="home" className="cursor-pointer">
-          <span className="text-2xl font-bold text-neutral-900">sarah<span className="text-primary-600">.</span></span>
+        {/* Logo */}
+        <Link to="/" className="cursor-pointer">
+          <span className="text-2xl font-bold text-neutral-900">
+            sarah<span className="text-primary-600">.</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div
+          className={`hidden md:flex items-center space-x-8 transition-opacity duration-500 ${
+            isProjectDetailsPage ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
           {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              spy={true}
-              smooth={true}
-              offset={-100}
-              duration={500}
-              className="nav-link cursor-pointer"
-            >
+            <Link key={item.to} to={item.to} className="nav-link cursor-pointer">
               {item.name}
             </Link>
           ))}
-          <a
-            href="#contact"
-            className="btn btn-primary"
-          >
+          <a href="/#contact" className="btn btn-primary">
             Let's Talk
           </a>
         </div>
@@ -56,11 +58,7 @@ const Navbar = ({ scrolled }) => {
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-neutral-800 focus:outline-none"
         >
-          {isOpen ? (
-            <HiX className="h-6 w-6" />
-          ) : (
-            <HiMenu className="h-6 w-6" />
-          )}
+          {isOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
         </button>
       </div>
 
@@ -78,18 +76,16 @@ const Navbar = ({ scrolled }) => {
               <Link
                 key={item.to}
                 to={item.to}
-                spy={true}
-                smooth={true}
-                offset={-100}
-                duration={500}
-                className="nav-link cursor-pointer"
+                className={`nav-link cursor-pointer transition-opacity duration-500 ${
+                  isProjectDetailsPage ? "opacity-0 pointer-events-none" : "opacity-100"
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               className="btn btn-primary w-full"
               onClick={() => setIsOpen(false)}
             >
