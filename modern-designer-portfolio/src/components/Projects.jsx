@@ -3,10 +3,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   const projects = [
     {
@@ -14,7 +11,7 @@ const Projects = () => {
       title: 'E-Commerce Website',
       description: 'A fully responsive e-commerce platform with product filtering, cart functionality, and secure checkout.',
       tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      image: 'https://images.unsplash.com/photo-1661956602116-aa6865609028?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80',
+      image: 'https://images.unsplash.com/photo-1661956602116-aa6865609028?auto=format&fit=crop&w=764&q=80',
       link: '#',
     },
     {
@@ -22,7 +19,7 @@ const Projects = () => {
       title: 'Portfolio Website',
       description: 'A modern portfolio website showcasing creative work with smooth animations and intuitive navigation.',
       tags: ['React', 'Tailwind CSS', 'Framer Motion'],
-      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1470&q=80',
       link: '#',
     },
     {
@@ -30,7 +27,7 @@ const Projects = () => {
       title: 'Task Management App',
       description: 'A productivity application that helps users organize tasks, set priorities, and track progress.',
       tags: ['React', 'Firebase', 'Material UI'],
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1470&q=80',
       link: '#',
     },
     {
@@ -38,72 +35,49 @@ const Projects = () => {
       title: 'Weather Dashboard',
       description: 'A weather application that provides real-time forecasts, interactive maps, and location-based alerts.',
       tags: ['JavaScript', 'API Integration', 'CSS3'],
-      image: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
+      image: 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=1074&q=80',
       link: '#',
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
-    <div className="container mx-auto px-4" ref={ref}>
+    <div className="container mx-auto px-6 py-12" ref={ref}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         transition={{ duration: 0.5 }}
         className="text-center mb-12"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-2 text-secondary-900">My Projects</h2>
-        <div className="w-20 h-1 bg-primary-600 mx-auto"></div>
-        <p className="text-secondary-600 mt-4 max-w-2xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">My Projects</h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
           Here are some of my recent projects. Each project represents a unique challenge and solution.
         </p>
       </motion.div>
 
       <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate={inView ? "visible" : "hidden"}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1, transition: { staggerChildren: 0.2 } } : { opacity: 0 }}
       >
         {projects.map((project) => (
           <motion.div
             key={project.id}
-            variants={itemVariants}
-            className="project-card"
+            className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition duration-300"
+            whileHover={{ scale: 1.03 }}
           >
-            <div className="h-60 overflow-hidden">
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-              />
-            </div>
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-52 object-cover"
+            />
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-2 text-secondary-900">{project.title}</h3>
-              <p className="text-secondary-600 mb-4">{project.description}</p>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">{project.title}</h3>
+              <p className="text-gray-600 mb-4">{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 bg-secondary-100 text-secondary-700 rounded-full text-xs font-medium"
+                    className="px-3 py-1 bg-gray-200 text-gray-800 rounded-full text-xs font-medium"
                   >
                     {tag}
                   </span>
@@ -111,7 +85,7 @@ const Projects = () => {
               </div>
               <a
                 href={project.link}
-                className="text-primary-600 font-medium hover:text-primary-700 transition-colors duration-300 inline-flex items-center"
+                className="text-blue-600 font-medium hover:underline flex items-center"
               >
                 View Project
                 <svg
