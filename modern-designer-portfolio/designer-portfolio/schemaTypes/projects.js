@@ -1,22 +1,40 @@
 export default {
-    name: 'projects',
-    title: 'Projects',
+    name: 'project',
     type: 'document',
+    title: 'Project',
     fields: [
-        { name: 'title', title: 'Title', type: 'string' },
-        { name: 'description', title: 'Description', type: 'text' },
         {
-            name: 'tags',
-            title: 'Tags',
-            type: 'array',
-            of: [{ type: 'string' }],
+            name: 'id',
+            type: 'string',
+            title: 'Project ID',
+            description: 'A unique identifier for the project.',
+        },
+        {
+            name: 'title',
+            type: 'string',
+            title: 'Title',
+            description: 'The title of the project.',
+        },
+        {
+            name: 'description',
+            type: 'text',
+            title: 'Description',
+            description: 'A brief description of the project.',
         },
         {
             name: 'image',
-            title: 'Image',
             type: 'image',
-            options: { hotspot: true },
+            title: 'Project Image',
+            description: 'An image representing the project.',
+            options: {
+                hotspot: true,
+            },
         },
-        { name: 'link', title: 'Project Link', type: 'url' },
+        {
+            name: 'category',
+            type: 'string',
+            title: 'Category',
+            description: 'The category of the project (e.g., UI/UX Design, Web Design).',
+        },
     ],
 };
