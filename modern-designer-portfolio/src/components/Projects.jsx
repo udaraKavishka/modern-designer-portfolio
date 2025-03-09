@@ -1,9 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useEffect } from 'react';
+import client from '../../sanityClient';
 
 const Projects = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  useEffect(() => {
+    client.fetch(
+      `*[_type == 'project'] {
+        _id,
+        title,
+        description,
+        tags,
+        image,
+        link
+      }`
+    )
+  }, [])
 
   const projects = [
     {
